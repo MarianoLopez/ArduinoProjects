@@ -6,24 +6,21 @@ DHT11 dht11(pin);
 int err;
 float temp, hum;
 
+// Incoming serial data
+int data=0;
+String retorno;
 void setup() {
   Serial.begin(9600);
 
 }
 
 void loop() {
-       // Si devuelve 0 es que ha leido bien
-       if((err = dht11.read(hum, temp)) == 0){
-             Serial.print("Temperatura: ");
-             Serial.print(temp);
-             Serial.print(" Humedad: ");
-             Serial.print(hum);
-             Serial.println();
-      }else{
-             Serial.println();
-             Serial.print("Error Num :");
-             Serial.print(err);
-             Serial.println();
-      }
-      delay(1000);            //Recordad que solo lee una vez por segundo
+  if((err = dht11.read(hum, temp)) == 0){
+    retorno="temp:";
+        retorno.concat(String(temp, 2));
+        retorno+=",hum:";
+        retorno.concat(String(hum, 2));
+        Serial.println(retorno);
+  }
+  delay(2000);
 }
