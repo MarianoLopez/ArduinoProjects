@@ -8,7 +8,7 @@ const int _delay = 1000;
 const int distancia_minima = 40;
 bool piloto = false;
 bool linea = false;
-int tiempo_giro = 1000;
+int tiempo_giro = 0;
 
 void setup() { 
   myservo.attach(13);// Servo.h

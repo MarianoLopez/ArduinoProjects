@@ -2,14 +2,14 @@
 
 int pin=2;
 DHT11 dht11(pin);
-
+int flame = 3; // define the flame sensor interface
 int err;
 float temp, hum;
 
-// Incoming serial data
-int data=0;
-String retorno;
+String retorno,aux;
 void setup() {
+  pinMode(pin,INPUT);
+  pinMode(flame,INPUT);
   Serial.begin(9600);
 
 }
@@ -20,13 +20,15 @@ void printSerialData(){
         retorno.concat(String(temp, 2));
         retorno+=",hum:";
         retorno.concat(String(hum, 2));
+        retorno+=",flame:";
+        retorno.concat(digitalRead(flame));
         Serial.println(retorno);
   }
 }
 
 void loop() {
   if(Serial.available()>0){
-    String aux = Serial.readString();
+    aux = Serial.readString();
     if(aux=="data\n"){
       printSerialData();
     }
