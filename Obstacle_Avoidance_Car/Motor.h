@@ -8,7 +8,13 @@ int enB = 5;
 int in3 = 7;
 int in4 = 6;
 
-int _speed = 130;
+int _speed = 100;
+
+void printIf(String message){
+  #ifdef send
+      Serial.println(message);
+  #endif
+}
 
 void setMotorsSpeed(int _sp){
   analogWrite(enA,_sp);
@@ -40,28 +46,30 @@ void _mForward(){
   setMotorsSpeed(_speed);
   motorForward('A');
   motorForward('B');
-  Serial.println("go forward!");
+  printIf("go forward!");
 }
 void _mBack(){
   setMotorsSpeed(_speed);
   motorBackward('A');
   motorBackward('B');
-  Serial.println("go back!");
+  printIf("go back!");
 }
 void _mleft(){
   setMotorsSpeed(_speed-10);
   motorBackward('B');
   motorForward('A');
-  Serial.println("go left!");
+  printIf("go left!");
 }
 void _mright(){
   setMotorsSpeed(_speed-10);
   motorForward('B');
   motorBackward('A');
-  Serial.println("go right!");
+  printIf("go right!");
 }
 void _mStop(){
   setMotorsSpeed(0);
-  Serial.println("Stop!");
+  printIf("Stop!");
 }
+
+
 

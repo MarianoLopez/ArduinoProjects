@@ -2,7 +2,7 @@
 #include "Ultrasonico.h"
 #include "Servo.h"
 
-#define send true;//para imprimir mensajes
+#define send false;//para imprimir mensajes
 
 const int _delay = 1000; 
 const int distancia_minima = 40;
@@ -49,10 +49,10 @@ void pilotoAutomatico(bool _piloto){
       myservo.write(frente);              
       if(rightDistance>leftDistance)  {
         _mright();
-        delay(tiempo_giro);
+       // delay(tiempo_giro);
        }else if(rightDistance<leftDistance){
         _mleft();
-        delay(tiempo_giro);
+       // delay(tiempo_giro);
        }else if((rightDistance<=distancia_minima)||(leftDistance<=distancia_minima)){
         _mBack();
        }
@@ -66,7 +66,7 @@ void loop() {
   pilotoAutomatico(piloto);
   Line(linea); 
   if(Serial.available()>0){
-    Serial.println("reading");
+    //Serial.println("reading");
     String s =Serial.readString();
     if(s=="f"){
       _mForward();
@@ -85,10 +85,8 @@ void loop() {
     }else if(s.indexOf("speed=")!=-1){
       String aux = s.substring(s.indexOf("="));
       int _inicio = aux.indexOf("=");
-      int speed_aux = aux.substring(_inicio+1).toInt();
-      Serial.print("Motor speed: ");
-      Serial.println(speed_aux);
-      _speed=speed_aux;
+      _speed = aux.substring(_inicio+1).toInt();
+      printIf("Motor speed: ",_speed);
       setMotorsSpeed(_speed);
     }
     else if(s=="piloto"){
@@ -110,9 +108,9 @@ void Line(bool _linea) {
     izq=digitalRead(12);    
     frente=digitalRead(11);
     der=digitalRead(2); 
-    Serial.print(izq);
+    /*Serial.print(izq);
     Serial.print(frente);
-    Serial.println(der);
+    Serial.println(der);*/
     //delay(3000);
     if(izq&&frente&&!der){
       _mleft(); //110
