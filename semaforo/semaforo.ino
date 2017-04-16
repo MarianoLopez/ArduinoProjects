@@ -1,57 +1,46 @@
 #include "Semaforo.h"
-Semaforo semaforo(3,4,5);
-Semaforo semaforo2(8,9,10);
+Semaforo semaforo("semaforo 1",3,4,5);
+Semaforo semaforo2("semaforo 2",8,9,10);
+int contador;
 
-void setup() {}
+void setup() {
+  Serial.begin(9600);
+  semaforo.enableMessages();//imprime los estados de los pins por serial
+  semaforo2.enableMessages();
+  delay(1000);
+}
 
-// the loop function runs over and over again forever
 void loop() {
-  semaforos();
+  contador = 60;//1min
+  semaforo.turnLedOn(RED_LED);
+  semaforo2.turnLedOn(GREEN_LED);
+  wait(28);
+  
+  semaforo.turnLedOn(YELLOW_LED);
+  semaforo2.turnLedOn(YELLOW_LED);
+  wait(2);
+
+  semaforo.turnLedOn(GREEN_LED);
+  semaforo2.turnLedOn(RED_LED);
+  wait(23);
+  //parpadeo
+  for(int i=0;i<5;i++){
+    semaforo.turnLedOn(GREEN_LED);  
+    wait(1);
+    semaforo.turnLedOff(GREEN_LED);  
+  }
+  
+  semaforo.turnLedOn(YELLOW_LED);
+  semaforo2.turnLedOn(YELLOW_LED);
+  wait(2);
 }
 
-void semaforos() {
-  /*luz(semaforo.getRedLed(), 25);
-  luz(semaforo.getYellowLed(), 5);
-  luz(semaforo.getGreenLed(), 25);
-  blinky(semaforo.getGreenLed(), 5);  
-  luz(semaforo.getYellowLed(), 5);*/
-
-  luzSync(semaforo.getRedLed(),semaforo2.getGreenLed(), 25);
-  blinkySync(semaforo2.getGreenLed(),semaforo.getRedLed(), 5);  
-  
-  luzSync(semaforo.getYellowLed(),semaforo2.getYellowLed(), 5);
-  
-  luzSync(semaforo.getGreenLed(),semaforo2.getRedLed(), 25);
-  blinkySync(semaforo.getGreenLed(),semaforo2.getRedLed(), 5);  
-  
-  luzSync(semaforo.getYellowLed(),semaforo2.getYellowLed(), 5);
-}
-
-void luz(int led, int tiempo) {
-  digitalWrite(led, HIGH);
-  delay(tiempo*1000);
-  digitalWrite(led, LOW);
-  }
-
-  void luzSync(int led,int led2, int tiempo) {
-  digitalWrite(led, HIGH);digitalWrite(led2, HIGH);
-  delay(tiempo*1000);
-  digitalWrite(led, LOW);digitalWrite(led2, LOW);
-  }
-
-
-void blinky(int led, int t)  {
-  for (int i=0; i<t; i++) {
-    luz(led, 1);
+void wait(int secs){
+  for(int i=0;i<secs;i++){
+    Serial.println(contador);
     delay(1000);
+    contador-=1;
   }
 }
 
-void blinkySync(int led, int t,int led2)  {
-  digitalWrite(led2, HIGH);
-  for (int i=0; i<t; i++) {
-    luz(led, 1);
-    delay(1000);
-  }
-  digitalWrite(led2, LOW);
-}
+
