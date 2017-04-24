@@ -2,7 +2,7 @@
 #include "Ultrasonico.h"
 #include "Servo.h"
 
-#define send true;//para imprimir mensajes
+#define send false;//para imprimir mensajes
 
 const int _delay = 1000; 
 const int distancia_minima = 40;
