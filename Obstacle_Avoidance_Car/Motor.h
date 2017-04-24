@@ -55,13 +55,13 @@ void _mBack(){
   printIf("go back!");
 }
 void _mleft(){
-  setMotorsSpeed(_speed-10);
+  setMotorsSpeed(_speed);
   motorBackward('B');
   motorForward('A');
   printIf("go left!");
 }
 void _mright(){
-  setMotorsSpeed(_speed-10);
+  setMotorsSpeed(_speed);
   motorForward('B');
   motorBackward('A');
   printIf("go right!");

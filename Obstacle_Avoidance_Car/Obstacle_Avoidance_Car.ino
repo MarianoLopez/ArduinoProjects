@@ -2,7 +2,7 @@
 #include "Ultrasonico.h"
 #include "Servo.h"
 
-#define send false;//para imprimir mensajes
+#define send true;//para imprimir mensajes
 
 const int _delay = 1000; 
 const int distancia_minima = 40;
@@ -68,6 +68,7 @@ void loop() {
   if(Serial.available()>0){
     //Serial.println("reading");
     String s =Serial.readString();
+    Serial.println(s);
     if(s=="f"){
       _mForward();
     }
@@ -82,12 +83,14 @@ void loop() {
     }
     else if(s=="s"){
        _mStop();     
+       piloto=false;
+       linea=false;
     }else if(s.indexOf("speed=")!=-1){
       String aux = s.substring(s.indexOf("="));
       int _inicio = aux.indexOf("=");
       _speed = aux.substring(_inicio+1).toInt();
       printIf("Motor speed: ",_speed);
-      setMotorsSpeed(_speed);
+      //setMotorsSpeed(_speed);
     }
     else if(s=="piloto"){
       piloto=!piloto;
