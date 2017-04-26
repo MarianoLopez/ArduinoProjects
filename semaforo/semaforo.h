@@ -37,6 +37,7 @@ class Semaforo{
       printMessageIf("Semaforo "+String(getId())+" - "+aux.toString());
     }
     void turnLedOff(LED num){getLed(num).turnOff();}
+    void turnAll(){for(int i=RED_LED;i<=GREEN_LED;i++){leds[i].turnOn();}}
     void enableMessages(){message=true;}
     void disableMessages(){message=false;}
   };

@@ -29,6 +29,7 @@ void setup() {
   semaforo3.turnLedOn(RED_LED);
   semaforo4.turnLedOn(RED_LED);
   contador = RED_GREEN_SEC_WAIT+GREEN_SEC_BLINK+YELLOW_SEC_WAIT;
+ // todo();
 }
 
 void turnSemaforo(Semaforo s,Semaforo prox){
@@ -44,6 +45,13 @@ void turnSemaforo(Semaforo s,Semaforo prox){
   
   s.turnLedOn(RED_LED);
   contador = RED_GREEN_SEC_WAIT+GREEN_SEC_BLINK+YELLOW_SEC_WAIT;//sec
+}
+
+void todo(){
+  semaforo.turnAll();
+  semaforo2.turnAll();
+  semaforo3.turnAll();
+  semaforo4.turnAll();
 }
 
 void loop() {
@@ -77,7 +85,7 @@ void refresh(){
 
 
 void initLCD(){
-  lcd.begin (16,2);    // Inicializar el display con 16 caraceres 2 lineas
+ lcd.begin (16,2);    // Inicializar el display con 16 caraceres 2 lineas
  lcd.setBacklightPin(3,POSITIVE);
  lcd.setBacklight(HIGH);
  delay(10);
