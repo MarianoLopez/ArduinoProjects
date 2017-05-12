@@ -5,7 +5,7 @@
 #define send false;//para imprimir mensajes
 
 const int _delay = 1000; 
-const int distancia_minima = 40;
+const int distancia_minima = 50;
 bool piloto = false;
 bool linea = false;
 int tiempo_giro = 0;
@@ -13,6 +13,7 @@ int tiempo_giro = 0;
 void setup() { 
   myservo.attach(13);// Servo.h
   Serial.begin(9600);     
+  Serial.setTimeout(100);
   pinMode(Echo, INPUT);pinMode(Trig, OUTPUT);  //ver Ultrasonico.h
   //Motor.h
   pinMode(in1,OUTPUT);pinMode(in2,OUTPUT);
