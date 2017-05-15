@@ -4,11 +4,12 @@
 
 #define send false;//para imprimir mensajes
 
-const int _delay = 1000; 
+int _speed;//motor
 const int distancia_minima = 50;
+int Servodelay = 500;
 bool piloto = false;
 bool linea = false;
-int tiempo_giro = 0;
+//int tiempo_giro = 0;
 
 void setup() { 
   myservo.attach(13);// Servo.h
@@ -20,6 +21,7 @@ void setup() {
   pinMode(in3,OUTPUT);pinMode(in4,OUTPUT);
   pinMode(enA, OUTPUT);pinMode(enB, OUTPUT);
   _mStop();
+  _speed=100;
 } 
 
 void printIf(String message, int value){
@@ -32,33 +34,33 @@ void printIf(String message, int value){
 void pilotoAutomatico(bool _piloto){
   if(_piloto){
     myservo.write(frente);//setservo position according to scaled value
-    delay(_delay); 
+    delay(Servodelay); 
     middleDistance = Distance_test();
     printIf("middleDistance=",middleDistance);
     if(middleDistance<=distancia_minima){     
       _mStop();
       myservo.write(derecha);          
-      delay(_delay);      
+      delay(Servodelay);      
       rightDistance = Distance_test();
       printIf("rightDistance=",rightDistance);
   
       myservo.write(izquierda);              
-      delay(_delay); 
+      delay(Servodelay); 
       leftDistance = Distance_test();
       printIf("leftDistance=",leftDistance);
   
       myservo.write(frente);              
       if(rightDistance>leftDistance)  {
-        _mright();
+        _mright(_speed);
        // delay(tiempo_giro);
        }else if(rightDistance<leftDistance){
-        _mleft();
+        _mleft(_speed);
        // delay(tiempo_giro);
        }else if((rightDistance<=distancia_minima)||(leftDistance<=distancia_minima)){
-        _mBack();
+        _mBack(_speed);
        }
     }else{
-      _mForward();                     
+      _mForward(_speed);                     
     }
   }
 }
@@ -71,16 +73,16 @@ void loop() {
     String s =Serial.readString();
     Serial.println(s);
     if(s=="f"){
-      _mForward();
+      _mForward(_speed);
     }
     else if(s=="b"){
-      _mBack();
+      _mBack(_speed);
     }
     else if(s=="l"){
-      _mleft();
+      _mleft(_speed);
     }
     else if(s=="r"){
-      _mright();
+      _mright(_speed);
     }
     else if(s=="s"){
        _mStop();     
@@ -117,17 +119,17 @@ void Line(bool _linea) {
     Serial.println(der);*/
     //delay(3000);
     if(izq&&frente&&!der){
-      _mleft(); //110
+      _mleft(_speed); //110
     }else if(!izq&&frente&&der){
-      _mright();//011
+      _mright(_speed);//011
     }else if(!izq&&frente&&!der){
-      _mForward();//010
+      _mForward(_speed);//010
     }else if(!izq&&!frente&&!der){
-      _mleft();//000
+      _mleft(_speed);//000
     }else if(izq&&frente&&der){
       _mStop();//111  
     }else if(!izq&&!frente&&der){
-      _mright();
+      _mright(_speed);
     }
   }
 }
