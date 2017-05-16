@@ -1,4 +1,4 @@
-class Ultrasonico{
+class UltrasonicoDriver{
     private:
     uint8_t Echo,Trig;
     
@@ -6,8 +6,8 @@ class Ultrasonico{
     void init(){pinMode(Echo, INPUT);pinMode(Trig, OUTPUT);}
     
     public:
-    Ultrasonico(){}
-    Ultrasonico(uint8_t echo,uint8_t  trig){
+    UltrasonicoDriver(){}
+    UltrasonicoDriver(uint8_t echo,uint8_t  trig){
       Echo = echo;
       Trig = trig;
       init();  
