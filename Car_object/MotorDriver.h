@@ -55,31 +55,31 @@ class MotorDriver{
     void setSpeed(int s){_speed = s;}
     int getSpeed(){return _speed;}
 
-    void forward(){ 
+    void adelante(){ 
       setMotorsSpeed();
       motorForward('A');
       motorForward('B');
       printIf("go forward!");
     }
-    void back(){
+    void atras(){
       setMotorsSpeed();
       motorBackward('A');
       motorBackward('B');
       printIf("go back!");
     }
-    void left(){
+    void izquierda(){
       setMotorsSpeed();
       motorBackward('B');
       motorForward('A');
       printIf("go left!");
     }
-    void right(){
+    void derecha(){
       setMotorsSpeed();
       motorForward('B');
       motorBackward('A');
       printIf("go right!");
     }
-    void stop(){
+    void frenar(){
       int aux = getSpeed();
       setSpeed(0);
       setMotorsSpeed();
