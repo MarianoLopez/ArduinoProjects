@@ -8,8 +8,9 @@ UltrasonicoDriver ultrasonico;
 ServoDriver servo;
 InfraredDriver IR;
 
-const int distancia_minima = 25;
-int izquierda,centro,derecha;
+const int distancia_minima = 25;//ultrasonico
+int izquierda,centro,derecha;//IR
+
 bool piloto = false;
 bool linea = false;
 
@@ -85,7 +86,7 @@ void pilotoAutomatico(bool _piloto){
       Serial.print(centro);
       Serial.print(" - ");
       Serial.println(derecha);*/
-      if(derecha>izquierda)  {
+      if(derecha>izquierda){
         driver.derecha();
        }else if(derecha<izquierda){
         driver.izquierda();
@@ -96,13 +97,12 @@ void pilotoAutomatico(bool _piloto){
     }else{
       driver.adelante();                    
     }
-  }//if piloto
+  }//end if piloto
 }
 
 //seguir
 void Line(bool _linea) {
-  //0=negro, 1=blanco
-  if(_linea){
+  if(_linea){//0=negro, 1=blanco
     if(IR.isIzquierda()&&IR.isCentro()&&!IR.isDerecha()){ //110
       driver.izquierda();
     }else if(!IR.isIzquierda()&&IR.isCentro()&&IR.isDerecha()){//011

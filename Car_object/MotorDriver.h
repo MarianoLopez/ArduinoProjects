@@ -11,6 +11,7 @@ class MotorDriver{
     void setMotorsSpeed(){
        int aux = getSpeed();
        if(_speed!=0){aux+=40;}//fix dx
+       if(aux>255){aux=255;}
        printIf("Motor speed: "+getSpeed());
        analogWrite(motorA,getSpeed());
        analogWrite(motorB,aux);
