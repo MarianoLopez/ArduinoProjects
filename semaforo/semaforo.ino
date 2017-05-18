@@ -78,8 +78,8 @@ void wait(int secs){
 }
 
 void refresh(){
-  Serial.print("No Cruce Por: ");Serial.println("S"+String(semaforo_activo)+": "+String(contador));//Serial
-  lcd.clear();lcd.home();lcd.print("No Cruce Por: ");lcd.setCursor(0,1);lcd.print("S"+String(semaforo_activo)+": "+String(contador));//LCD
+  Serial.print("No cruzar por: ");Serial.println("Semáforo"+String(semaforo_activo)+": "+String(contador));//Serial
+  lcd.clear();lcd.home();lcd.print("No cruzar por: ");lcd.setCursor(0,1);lcd.print("Semaforo "+String(semaforo_activo)+": "+String(contador));//LCD
   contador-=1;
 }
 
